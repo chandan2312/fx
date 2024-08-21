@@ -163,8 +163,11 @@ const Alerts = () => {
 															.length
 															? alert?.breakupPrices
 																	?.filter((price: any) => !price?.triggeredAt)
-																	?.map((item: any) => (
-																		<div className="flex items-center justify-between gap-2">
+																	?.map((item: any, index: number) => (
+																		<div
+																			key={index}
+																			className="flex items-center justify-between gap-2"
+																		>
 																			<div
 																				className={cn(
 																					"text-sm w-40 h-6 bg-green-500/20 px-2 py-1 rounded-md flex items-center justify-between",
@@ -215,8 +218,11 @@ const Alerts = () => {
 														)?.length
 															? alert?.breakdownPrices
 																	.filter((price: any) => !price?.triggeredAt)
-																	?.map((item: any) => (
-																		<div className="flex items-center justify-between gap-2">
+																	?.map((item: any, index: number) => (
+																		<div
+																			key={index}
+																			className="flex items-center justify-between gap-2"
+																		>
 																			<div
 																				className={cn(
 																					"text-sm w-40 h-6 bg-red-500/20 px-2 py-1 rounded-md flex items-center justify-between",
@@ -273,9 +279,10 @@ const Alerts = () => {
 														<Clock size={18} />
 													</span> */}
 													<div className="flex gap-2">
-														{last3?.map((item: any) => {
+														{last3?.map((item: any, index: number) => {
 															return (
 																<div
+																	key={index}
 																	className={cn(
 																		"text-xs rounded-md px-1 ",
 																		item.type === "breakupPrice"
