@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 // @ts-ignore
 import prisma from "@/lib/db";
 
+export const revalidate = 0;
+
 export async function POST(req: any) {
 	const body = await req.json(); // Parse the request body
 

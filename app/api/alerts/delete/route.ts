@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 // @ts-ignore
 import prisma from "@/lib/db";
 
+export const revalidate = 0;
+
 export async function DELETE(req: any) {
 	const { searchParams } = new URL(req.url);
 	const id = searchParams.get("id");
