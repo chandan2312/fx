@@ -49,7 +49,6 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { revalidatePath } from "next/cache";
 
 const formSchema = z.object({
 	pair: z.string().min(5).max(50),
@@ -104,7 +103,6 @@ const AddAlert = () => {
 			const res = await axios.post("/api/alerts/add", data);
 			const status = res.status;
 			if (status === 200) {
-				revalidatePath("/api/alerts/get");
 				toast.success("Event has been created");
 				window.location.reload();
 			}

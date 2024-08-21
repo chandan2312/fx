@@ -97,7 +97,6 @@ const EditAlertButton = ({ alert }: { alert: any }) => {
 			const status = res.status;
 			if (status === 200) {
 				toast.success("Event has been updated");
-				revalidatePath("/api/alerts/get");
 				window.location.reload();
 			}
 		} catch (error: any) {

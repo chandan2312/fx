@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { revalidatePath } from "next/cache";
 
 import {
 	CheckCheck,
@@ -52,7 +51,6 @@ const Alerts = () => {
 	}
 
 	useEffect(() => {
-		revalidatePath("/api/alerts/get");
 		fetchData();
 	}, []);
 
@@ -72,7 +70,6 @@ const Alerts = () => {
 			const res = await axios.put("/api/alerts/edit", data);
 			const status = res.status;
 			if (status === 200) {
-				revalidatePath("/api/alerts/get");
 				await fetchData();
 				toast.success("Price added");
 			}
@@ -105,7 +102,6 @@ const Alerts = () => {
 			const res = await axios.put("/api/alerts/edit", data);
 			const status = res.status;
 			if (status === 200) {
-				revalidatePath("/api/alerts/get");
 				await fetchData();
 				toast.success("Price deleted");
 			}
