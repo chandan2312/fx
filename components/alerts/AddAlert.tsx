@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { pairs } from "@/constant";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 import {
 	Drawer,
 	DrawerClose,
@@ -59,6 +61,7 @@ const formSchema = z.object({
 	breakdownPrice2: z.coerce.number().min(0).optional(),
 	breakdownPrice3: z.coerce.number().min(0).optional(),
 	expiresAt: z.string().min(1).max(30),
+	rating: z.coerce.number().min(1).max(5),
 	message: z.string().optional(),
 });
 
@@ -76,6 +79,7 @@ const AddAlert = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			expiresAt: "7",
+			rating: 1,
 		},
 	});
 
@@ -97,6 +101,7 @@ const AddAlert = () => {
 				...(values.breakdownPrice3 ? [{ price: values.breakdownPrice3 }] : []),
 			],
 			...(values?.message && { message: values.message }),
+			rating: values.rating || 1,
 		};
 
 		try {
@@ -170,25 +175,29 @@ const AddAlert = () => {
 													<CommandInput placeholder="Search Pair" />
 													<CommandList>
 														<CommandEmpty>No Pair Found</CommandEmpty>
-														<CommandGroup>
-															{pairs.map((pair: any) => (
-																<CommandItem
-																	value={pair.value}
-																	key={pair.value}
-																	onSelect={() => {
-																		form.setValue("pair", pair.value);
-																	}}
-																>
-																	<Check
-																		className={cn(
-																			"mr-2 h-4 w-4",
-																			pair.value === field.value ? "opacity-100" : "opacity-0"
-																		)}
-																	/>
-																	{pair.label}
-																</CommandItem>
-															))}
-														</CommandGroup>
+														{/* <CommandGroup> */}
+														<ScrollArea className="h-72 w-48 rounded-md border">
+															<div>
+																{pairs.map((pair: any) => (
+																	<CommandItem
+																		value={pair.value}
+																		key={pair.value}
+																		onSelect={() => {
+																			form.setValue("pair", pair.value);
+																		}}
+																	>
+																		<Check
+																			className={cn(
+																				"mr-2 h-4 w-4",
+																				pair.value === field.value ? "opacity-100" : "opacity-0"
+																			)}
+																		/>
+																		{pair.label}
+																	</CommandItem>
+																))}
+															</div>
+														</ScrollArea>
+														{/* </CommandGroup> */}
 													</CommandList>
 												</Command>
 											</PopoverContent>
@@ -319,6 +328,20 @@ const AddAlert = () => {
 										<FormLabel>Message</FormLabel>
 										<FormControl>
 											<Input placeholder="Add note" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="rating"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Rating</FormLabel>
+										<FormControl>
+											<Input type="number" placeholder="Rating" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

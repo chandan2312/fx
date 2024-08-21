@@ -7,7 +7,14 @@ export const revalidate = 0;
 export async function POST(req: any) {
 	const body = await req.json(); // Parse the request body
 
-	const { pair, breakupPrices, breakdownPrices, expiresAt, message = "" } = body;
+	const {
+		pair,
+		breakupPrices,
+		breakdownPrices,
+		expiresAt,
+		rating,
+		message = "",
+	} = body;
 
 	if (!pair || (!breakupPrices && !breakdownPrices.length)) {
 		return NextResponse.json(
@@ -24,6 +31,7 @@ export async function POST(req: any) {
 			...(breakdownPrices && { breakdownPrices }),
 			...(expiresAt && { expiresAt }),
 			...(message && { message }),
+			...(rating && { rating: parseInt(rating) }),
 		},
 	});
 

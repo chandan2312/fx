@@ -28,12 +28,12 @@ function TVChart({ symbol, interval }: { symbol: string; interval: string }) {
           "support_host": "https://www.tradingview.com"
         }`;
 		//@ts-ignore
-		container.current.appendChild(script);
+		container?.current?.appendChild(script);
 
 		// Clean up
 		return () => {
 			//@ts-ignore
-			container.current.removeChild(script);
+			container?.current?.removeChild(script);
 		};
 	}, []);
 

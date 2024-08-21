@@ -123,7 +123,6 @@ const Alerts = () => {
 				setRating(rate);
 				toast.success("Rating updated");
 				fetchData();
-				window.location.reload();
 			}
 		} catch (error: any) {
 			console.error(error.message);
@@ -339,7 +338,7 @@ const Alerts = () => {
 															//@ts-ignore
 															pairs?.find((item: any) => item.value === alert.pair).symbol
 														}
-														interval="60"
+														interval={alert.rating == 5 ? "15" : "60"}
 													/>
 													<EditAlertButton alert={alert} />
 													<DeleteAlertButton alert={alert} />
@@ -349,16 +348,20 @@ const Alerts = () => {
 
 										{/* --------------- Chart ------------------ */}
 
-										<div className="flex-grow tradingview-chart w-full h-80">
-											<TVChart
-												//@ts-ignore
-												symbol={
+										{alert?.rating >= 3 ? (
+											<div className="flex-grow tradingview-chart w-full h-80">
+												<TVChart
 													//@ts-ignore
-													pairs?.find((item: any) => item.value === alert.pair).symbol
-												}
-												interval="60"
-											/>
-										</div>
+													symbol={
+														//@ts-ignore
+														pairs?.find((item: any) => item.value === alert.pair).symbol
+													}
+													interval={alert.rating == 5 ? "15" : "60"}
+												/>
+											</div>
+										) : (
+											""
+										)}
 									</div>
 								);
 						  })
