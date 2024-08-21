@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
+import { pairs } from "@/constant";
 
 import {
 	CheckCheck,
@@ -22,6 +23,8 @@ import { Input } from "@/components/ui/input";
 import { set } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
+import TVChart from "@/components/chart/TVChart";
+import PopupChart from "@/components/chart/PopupChart";
 
 const Alerts = () => {
 	const [alertList, setAlertList] = React.useState([]);
@@ -112,7 +115,7 @@ const Alerts = () => {
 	}
 
 	return (
-		<div className="max-w-3xl mx-auto p-4 ">
+		<div className="max-w-6xl mx-auto p-4 ">
 			<div>
 				<AddAlert />
 			</div>
@@ -134,20 +137,20 @@ const Alerts = () => {
 									})),
 								];
 
-								const last3 = merged
+								const last4 = merged
 									.filter((item: any) => item?.triggeredAt)
 									.sort(
 										(a: any, b: any) =>
 											new Date(b.triggeredAt).getTime() - new Date(a.triggeredAt).getTime()
 									)
-									.slice(0, 3);
+									.slice(0, 4);
 
 								return (
 									<div
 										key={alert.id}
-										className="p-2  rounded-md  shadow-sm border border-foreground/20"
+										className="p-2  rounded-md  shadow-sm border border-foreground/20 md:gap-4 max-md:gap-2 flex max-md:flex-col items-center justify-between"
 									>
-										<div>
+										<div className="flex-shrink">
 											<div className="w-full flex items-center gap-2 font-semibold my-1">
 												<span>{alert.pair.replace("%2F", "/")}</span>
 												{alert?.message ? (
@@ -171,7 +174,7 @@ const Alerts = () => {
 																		>
 																			<div
 																				className={cn(
-																					"text-sm w-40 h-6 bg-green-500/20 px-2 py-1 rounded-md flex items-center justify-between",
+																					"text-sm w-40 h-8 bg-green-500/20 px-2 py-1 rounded-md flex items-center justify-between",
 																					item?.triggered && "bg-muted"
 																				)}
 																			>
@@ -183,7 +186,7 @@ const Alerts = () => {
 																				}
 																				className="cursor-pointer rounded-full bg-green-500 text-white"
 																			>
-																				<X size={14} />
+																				<X size={16} />
 																			</span>
 																		</div>
 																	))
@@ -193,7 +196,7 @@ const Alerts = () => {
 															<Input
 																type="number"
 																onChange={(e: any) => setNewBreakupPrice(e.target.value)}
-																className="h-6 bg-green-500/5 border border-green-500 w-40"
+																className="h-8 bg-green-500/5 border border-green-500 w-40"
 															/>{" "}
 															<span
 																className="cursor-pointer"
@@ -226,7 +229,7 @@ const Alerts = () => {
 																		>
 																			<div
 																				className={cn(
-																					"text-sm w-40 h-6 bg-red-500/20 px-2 py-1 rounded-md flex items-center justify-between",
+																					"text-sm w-40 h-8 bg-red-500/20 px-2 py-1 rounded-md flex items-center justify-between",
 																					item?.triggered && "bg-muted"
 																				)}
 																			>
@@ -247,7 +250,7 @@ const Alerts = () => {
 															<Input
 																type="number"
 																onChange={(e: any) => setNewBreakdownPrice(e.target.value)}
-																className="h-6 bg-red-500/5 border border-red-500 w-40"
+																className="h-8 bg-red-500/5 border border-red-500 w-40"
 															/>{" "}
 															<span
 																className="cursor-pointer"
@@ -280,7 +283,7 @@ const Alerts = () => {
 														<Clock size={18} />
 													</span> */}
 													<div className="flex gap-2">
-														{last3?.map((item: any, index: number) => {
+														{last4?.map((item: any, index: number) => {
 															return (
 																<div
 																	key={index}
@@ -292,17 +295,39 @@ const Alerts = () => {
 																	)}
 																>
 																	<span className="block">{item.price}</span>
-																	<span>{timeAgo(item?.triggeredAt)}</span>
+																	<span className="font-light text-foreground">
+																		{timeAgo(item?.triggeredAt)}
+																	</span>
 																</div>
 															);
 														})}
 													</div>
 												</div>
 												<div className="flex gap-2 items-center">
+													<PopupChart
+														symbol={
+															//@ts-ignore
+															pairs?.find((item: any) => item.value === alert.pair).symbol
+														}
+														interval="60"
+													/>
 													<EditAlertButton alert={alert} />
 													<DeleteAlertButton alert={alert} />
 												</div>
 											</div>
+										</div>
+
+										{/* --------------- Chart ------------------ */}
+
+										<div className="flex-grow tradingview-chart">
+											<TVChart
+												//@ts-ignore
+												symbol={
+													//@ts-ignore
+													pairs?.find((item: any) => item.value === alert.pair).symbol
+												}
+												interval="60"
+											/>
 										</div>
 									</div>
 								);

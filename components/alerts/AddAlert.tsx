@@ -119,12 +119,12 @@ const AddAlert = () => {
 					Add Alert
 				</div>
 			</DrawerTrigger>
-			<DrawerContent>
-				<DrawerHeader>
+			<DrawerContent className="max-w-7xl mx-auto">
+				<DrawerHeader className="flex mx-auto">
 					<DrawerTitle>Add New Alert</DrawerTitle>
 				</DrawerHeader>
 
-				<div className=" p-4  ">
+				<div className=" p-4  max-w-3xl mx-auto">
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
 							{/* <FormField
