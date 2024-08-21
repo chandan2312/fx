@@ -30,7 +30,7 @@ export const pairs = [
 	{ value: "Gold%2FUSD", label: "XAUUSD", symbol: "OANDA:XAUUSD" },
 	{ value: "Silver%2FUSD", label: "XAGUSD", symbol: "OANDA:XAGUSD" },
 	//usoil
-	{ value: "WTI%2FUSD", label: "USOIL", symbol: "FX:USOIL" },
+	{ value: "WTI%2FUSD", label: "USOIL", symbol: "TVC:USOIL" },
 	//ukoil
-	{ value: "Brent%2FUSD", label: "UKOIL", symbol: "FX:UKOIL" },
+	{ value: "Brent%2FUSD", label: "UKOIL", symbol: "TVC:UKOIL" },
 ];

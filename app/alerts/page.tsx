@@ -319,20 +319,16 @@ const Alerts = () => {
 
 										{/* --------------- Chart ------------------ */}
 
-										{!alert.pair.includes("WTI") && !alert.pair.includes("Brent") ? (
-											<div className="flex-grow tradingview-chart w-full h-80">
-												<TVChart
+										<div className="flex-grow tradingview-chart w-full h-80">
+											<TVChart
+												//@ts-ignore
+												symbol={
 													//@ts-ignore
-													symbol={
-														//@ts-ignore
-														pairs?.find((item: any) => item.value === alert.pair).symbol
-													}
-													interval="60"
-												/>
-											</div>
-										) : (
-											""
-										)}
+													pairs?.find((item: any) => item.value === alert.pair).symbol
+												}
+												interval="60"
+											/>
+										</div>
 									</div>
 								);
 						  })
