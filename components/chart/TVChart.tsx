@@ -45,7 +45,7 @@ function TVChart({ symbol, interval }: { symbol: string; interval: string }) {
 			style={{ height: "100%", width: "100%" }}
 		>
 			<div
-				className="tradingview-widget-container__widget"
+				className="tradingview-widget-container__widget max-md:m-0"
 				style={{ height: "calc(100% - 32px)", width: "100%" }}
 			></div>
 			<div className="tradingview-widget-copyright">
