@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { pairs } from "@/constant";
@@ -12,6 +12,7 @@ import {
 	Hourglass,
 	Pen,
 	Plus,
+	Star,
 	Trash,
 	X,
 } from "lucide-react";
@@ -30,6 +31,8 @@ const Alerts = () => {
 	const [alertList, setAlertList] = React.useState([]);
 	const [newBreakupPrice, setNewBreakupPrice] = React.useState(0);
 	const [newBreakdownPrice, setNewBreakdownPrice] = React.useState(0);
+	const starArr = [1, 2, 3, 4, 5];
+	const [rating, setRating] = useState(0);
 
 	async function fetchData() {
 		const res = await axios.get("/api/alerts/get");
@@ -41,13 +44,7 @@ const Alerts = () => {
 		}
 
 		data.sort((a: any, b: any) => {
-			if (a.pair < b.pair) {
-				return -1;
-			}
-			if (a.pair > b.pair) {
-				return 1;
-			}
-			return 0;
+			return b.rating - a.rating;
 		});
 
 		setAlertList(data);
@@ -114,9 +111,29 @@ const Alerts = () => {
 		}
 	}
 
+	const handleRating = async (rate: number, id: any) => {
+		try {
+			const res = await axios.put(`/api/alerts/edit`, {
+				id: id,
+				rating: rate,
+			});
+
+			const status = res.status;
+			if (status === 200) {
+				setRating(rate);
+				toast.success("Rating updated");
+				fetchData();
+				window.location.reload();
+			}
+		} catch (error: any) {
+			console.error(error.message);
+			toast.error("Error in updating rating");
+		}
+	};
+
 	return (
 		<div className="max-w-6xl mx-auto p-4 ">
-			<div>
+			<div className="flex items-center justify-center">
 				<AddAlert />
 			</div>
 
@@ -148,16 +165,29 @@ const Alerts = () => {
 								return (
 									<div
 										key={alert.id}
-										className="p-2  rounded-md  shadow-sm border border-foreground/20 md:gap-4 max-md:gap-2 flex max-md:flex-col items-center justify-between"
+										className="p-1  rounded-md  shadow-sm border  md:gap-4 max-md:gap-2 flex max-md:flex-col items-center justify-between"
 									>
 										<div className="flex-shrink">
-											<div className="w-full flex items-center gap-2 font-semibold my-1">
+											<div className="w-full flex justify-between items-center gap-2 font-semibold my-2">
 												<span>{alert.pair.replace("%2F", "/")}</span>
 												{alert?.message ? (
 													<p className="text-xs  font-light pr-2">{alert.message}</p>
 												) : (
 													""
 												)}
+
+												<div className="flex items-center gap-2 h-3 ">
+													{starArr.map((item: any, index: number) => {
+														return (
+															<span key={index + 1} className={cn("cursor-pointer")}>
+																<Star
+																	color={index + 1 <= alert?.rating ? "#47a0df" : "#b5b5b5"}
+																	onClick={() => handleRating(index + 1, alert.id)}
+																/>
+															</span>
+														);
+													})}
+												</div>
 											</div>
 											<div className="w-full flex justify-between items-center">
 												<div className="flex gap-4">

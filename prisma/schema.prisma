@@ -17,4 +17,5 @@ model Alert {
   breakupPrices   Json[]
   breakdownPrices Json[]
   triggered       Boolean   @default(false)
+  rating          Int       @default(0)
 }

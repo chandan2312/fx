@@ -15,6 +15,7 @@ export async function PUT(req: any) {
 		expiresAt,
 		message,
 		triggered,
+		rating,
 	} = body;
 
 	//@ts-ignore
@@ -27,6 +28,7 @@ export async function PUT(req: any) {
 			...(expiresAt && { expiresAt }),
 			...(message && { message }),
 			...(triggered && { triggered }),
+			...(rating && { rating: parseInt(rating) }),
 		},
 	});
 
