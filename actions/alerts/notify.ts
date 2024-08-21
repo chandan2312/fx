@@ -147,9 +147,10 @@ async function notify() {
 
 	const template = msg
 		.map((item: any) => {
-			return `${item?.message && item.message + "\n"}${item.pair} ${
-				item.type == "breakup" ? "🟢" : "🔴"
-			} ${item.price}`;
+			return `${item?.message ? item.message + "\n" : ""}${item.pair.replace(
+				"%2F",
+				"/"
+			)} ${item.type == "breakup" ? "🟢" : "🔴"} ${item.price}`;
 		})
 		.join("\n");
 
