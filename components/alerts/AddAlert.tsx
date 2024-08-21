@@ -175,29 +175,25 @@ const AddAlert = () => {
 													<CommandInput placeholder="Search Pair" />
 													<CommandList>
 														<CommandEmpty>No Pair Found</CommandEmpty>
-														{/* <CommandGroup> */}
-														<ScrollArea className="h-72 w-48 rounded-md border">
-															<div>
-																{pairs.map((pair: any) => (
-																	<CommandItem
-																		value={pair.value}
-																		key={pair.value}
-																		onSelect={() => {
-																			form.setValue("pair", pair.value);
-																		}}
-																	>
-																		<Check
-																			className={cn(
-																				"mr-2 h-4 w-4",
-																				pair.value === field.value ? "opacity-100" : "opacity-0"
-																			)}
-																		/>
-																		{pair.label}
-																	</CommandItem>
-																))}
-															</div>
-														</ScrollArea>
-														{/* </CommandGroup> */}
+														<CommandGroup>
+															{pairs.map((pair: any) => (
+																<CommandItem
+																	value={pair.value}
+																	key={pair.value}
+																	onSelect={() => {
+																		form.setValue("pair", pair.value);
+																	}}
+																>
+																	<Check
+																		className={cn(
+																			"mr-2 h-4 w-4",
+																			pair.value === field.value ? "opacity-100" : "opacity-0"
+																		)}
+																	/>
+																	{pair.label}
+																</CommandItem>
+															))}
+														</CommandGroup>
 													</CommandList>
 												</Command>
 											</PopoverContent>
