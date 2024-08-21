@@ -8,9 +8,7 @@ import { toast } from "sonner";
 const DeleteAlertButton = ({ alert }: { alert: any }) => {
 	async function onDelete(id: string) {
 		try {
-			const res = await axios.delete(
-				`http://localhost:3000/api/alerts/delete?id=${id}`
-			);
+			const res = await axios.delete(`/api/alerts/delete?id=${id}`);
 			const status = res.status;
 			if (status === 200) {
 				toast.success("Event has been deleted");

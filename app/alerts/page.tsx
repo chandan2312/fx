@@ -28,7 +28,7 @@ const Alerts = () => {
 	const [newBreakdownPrice, setNewBreakdownPrice] = React.useState(0);
 
 	async function fetchData() {
-		const res = await axios.get("http://localhost:3000/api/alerts/get");
+		const res = await axios.get("/api/alerts/get");
 		const data = res.data.alerts;
 
 		if (!data?.length) {
@@ -66,7 +66,7 @@ const Alerts = () => {
 			data.breakdownPrices = [...alert?.breakdownPrices, { price }];
 		}
 		try {
-			const res = await axios.put("http://localhost:3000/api/alerts/edit", data);
+			const res = await axios.put("/api/alerts/edit", data);
 			const status = res.status;
 			if (status === 200) {
 				await fetchData();
@@ -98,7 +98,7 @@ const Alerts = () => {
 		}
 
 		try {
-			const res = await axios.put("http://localhost:3000/api/alerts/edit", data);
+			const res = await axios.put("/api/alerts/edit", data);
 			const status = res.status;
 			if (status === 200) {
 				await fetchData();

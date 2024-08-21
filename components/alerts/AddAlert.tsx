@@ -100,7 +100,7 @@ const AddAlert = () => {
 		};
 
 		try {
-			const res = await axios.post("http://localhost:3000/api/alerts/add", data);
+			const res = await axios.post("/api/alerts/add", data);
 			const status = res.status;
 			if (status === 200) {
 				toast.success("Event has been created");
