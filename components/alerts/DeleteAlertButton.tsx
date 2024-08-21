@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { Trash } from "lucide-react";
+import { revalidatePath } from "next/cache";
 import React from "react";
 import { toast } from "sonner";
 
@@ -12,6 +13,7 @@ const DeleteAlertButton = ({ alert }: { alert: any }) => {
 			const status = res.status;
 			if (status === 200) {
 				toast.success("Event has been deleted");
+				revalidatePath("/api/alerts/get");
 				window.location.reload();
 			}
 		} catch (error: any) {
