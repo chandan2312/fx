@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "actions/alerts/notify.js", "actions/alerts/notify.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "actions/alerts/notify.js", "actions/alerts/notify.js", "components/chart/TVChart.jsx"],
   "exclude": ["node_modules"]
 }
