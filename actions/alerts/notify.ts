@@ -156,6 +156,14 @@ async function notify() {
 
 	console.log("Alerts triggered:", template);
 
+	try {
+		await sendTelegramNotification(template);
+	} catch (error: any) {
+		console.error("Error sending notification:", error.message);
+		await sendTelegramNotification("🔴 Error sending notification");
+		process.exit(1);
+	}
+
 	process.exit(0);
 }
 
