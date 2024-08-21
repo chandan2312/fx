@@ -93,7 +93,7 @@ const EditAlertButton = ({ alert }: { alert: any }) => {
 			message: values.message,
 		};
 		try {
-			const res = await axios.put(`http://localhost:3000/api/alerts/edit`, data);
+			const res = await axios.put(`/api/alerts/edit`, data);
 			const status = res.status;
 			if (status === 200) {
 				toast.success("Event has been updated");
