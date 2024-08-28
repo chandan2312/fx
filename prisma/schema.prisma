@@ -19,3 +19,17 @@ model Alert {
   triggered       Boolean   @default(false)
   rating          Int       @default(0)
 }
+
+model ChartLayout {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  clientId  String
+  symbol    String
+  interval  String
+  layout    Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Composite unique key
+  @@unique([userId, clientId, symbol, interval])
+}

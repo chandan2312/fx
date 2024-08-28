@@ -346,7 +346,7 @@ const Alerts = () => {
 											</div>
 										</div>
 
-										{/* --------------- Chart ------------------ */}
+										{/* --------------- Chart ------------------
 
 										{alert?.rating >= 3 ? (
 											<div className="flex-grow tradingview-chart w-full h-80">
@@ -357,11 +357,13 @@ const Alerts = () => {
 														pairs?.find((item: any) => item.value === alert.pair).symbol
 													}
 													interval={alert.rating == 5 ? "15" : "60"}
+													clientId="fxtools"
+													userId="chandan23"
 												/>
 											</div>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 								);
 						  })
