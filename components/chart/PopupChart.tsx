@@ -30,7 +30,7 @@ const PopupChart = ({
 			<DrawerTrigger>
 				<Maximize size={18} />
 			</DrawerTrigger>
-			<DrawerContent className="h-[90%]">
+			<DrawerContent className="h-[100%]">
 				<DrawerHeader>
 					<DrawerTitle>{symbol}</DrawerTitle>
 				</DrawerHeader>
