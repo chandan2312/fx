@@ -356,8 +356,7 @@ const Alerts = () => {
 														pairs?.find((item: any) => item.value === alert.pair).symbol
 													}
 													interval={alert.rating == 5 ? "15" : "60"}
-													clientId="fxtools"
-													userId="chandan23"
+													
 												/>
 											</div>
 										) : (
