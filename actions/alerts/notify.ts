@@ -17,9 +17,8 @@ async function notify() {
 	} catch (error: any) {
 		console.error("Error fetching alerts:", error.message);
 		await sendTelegramNotification("🔴 Error fetching alerts");
-		await new Promise((resolve) => setTimeout(resolve, 30000));
-
-		process.exit(1);
+		// Retry after 10 seconds
+		return;
 	}
 
 	try {
@@ -42,9 +41,8 @@ async function notify() {
 	} catch (error: any) {
 		console.error("Error fetching live prices:", error.message);
 		await sendTelegramNotification("🔴 Error fetching live prices");
-		await new Promise((resolve) => setTimeout(resolve, 30000));
-
-		process.exit(1);
+		// Retry after 10 seconds
+		return;
 	}
 
 	for (const alert of allAlerts) {
@@ -90,9 +88,7 @@ async function notify() {
 								await sendTelegramNotification(
 									"🔴 Error updating alert" + error.message
 								);
-								await new Promise((resolve) => setTimeout(resolve, 30000));
-
-								process.exit(1);
+								return;
 							}
 						}
 					}
@@ -135,9 +131,7 @@ async function notify() {
 								await sendTelegramNotification(
 									"🔴 Error updating alert" + error.message
 								);
-								await new Promise((resolve) => setTimeout(resolve, 30000));
-
-								process.exit(1);
+								return;
 							}
 						}
 					}
@@ -149,9 +143,7 @@ async function notify() {
 	// send notification
 	if (!msg?.length) {
 		console.log("No alerts triggered");
-		await new Promise((resolve) => setTimeout(resolve, 30000));
-
-		process.exit(0);
+		return;
 	}
 
 	const template = msg
@@ -170,13 +162,20 @@ async function notify() {
 	} catch (error: any) {
 		console.error("Error sending notification:", error.message);
 		await sendTelegramNotification("🔴 Error sending notification");
-		//30 second pause, timeout
-		await new Promise((resolve) => setTimeout(resolve, 30000));
-		process.exit(1);
+		return;
 	}
-	await new Promise((resolve) => setTimeout(resolve, 30000));
-
-	process.exit(0);
 }
 
-notify();
+async function startNotifier() {
+	while (true) {
+		try {
+			await notify();
+		} catch (error) {
+			console.error("An error occurred during notification process:", error);
+		}
+		// Wait for 10 seconds before running again
+		await new Promise((resolve) => setTimeout(resolve, 10000));
+	}
+}
+
+startNotifier();
