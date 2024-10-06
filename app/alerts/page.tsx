@@ -346,7 +346,6 @@ const Alerts = () => {
 											</div>
 										</div>
 
-{/* 										{/* --------------- Chart ------------------ */}
 
 										{alert?.rating >= 3 ? (
 											<div className="flex-grow tradingview-chart w-full h-80">
