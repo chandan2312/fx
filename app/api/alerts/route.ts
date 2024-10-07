@@ -5,7 +5,7 @@ import prisma from "../../../lib/db";
 import { sendTelegramNotification } from "../../../actions/other/send-to-telegram";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     //@ts-ignore
     let allAlerts;
     let livePrices;
