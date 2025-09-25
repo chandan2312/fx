@@ -347,8 +347,7 @@ const Alerts = () => {
 										</div>
 
 
-										{alert?.rating >= 3 ? (
-											<div className="flex-grow tradingview-chart w-full h-80">
+										<div className="flex-grow tradingview-chart w-full h-80">
 												<TVChart
 													//@ts-ignore
 													symbol={
@@ -359,9 +358,7 @@ const Alerts = () => {
 													
 												/>
 											</div>
-										) : (
-											""
-										)}
+										
 									</div>
 								);
 						  })
